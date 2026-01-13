@@ -18,6 +18,7 @@
 go.work
 
 # Env file
+*.env
 .env
 
 # IDEs
