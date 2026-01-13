@@ -14,13 +14,13 @@ This project is a clean-architecture inspired backend service built with Go. It 
 ├── cmd/                # Application entry points
 │   ├── graphql/        # GraphQL server
 │   └── rest/           # REST API server (Gin)
-│   │   ├── handler/    # Route handlers
-│   │   ├── middleware/ # Custom middlewares
-│   │   ├── request/    # Request DTOs
-│   │   └── response/   # Response DTOs
-│   │   └── server.go   # Server initialization
-│   │   └── router.go   # Router setup
-│   │   └── main.go     # Application entry point
+│        ├── handler/    # Route handlers
+│        ├── middleware/ # Custom middlewares
+│        ├── request/    # Request DTOs
+│        ├── response/   # Response DTOs
+│        ├── server.go   # Server initialization
+│        ├── router.go   # Router setup
+│        └── main.go     # Application entry point
 ├── config/             # Configuration logic and DB initialization
 ├── db/                 # Database schema and queries
 │   ├── queries/        # SQL queries for sqlc

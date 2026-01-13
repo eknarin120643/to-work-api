@@ -33,5 +33,5 @@ func main() {
 	slog.Info("Redis initialized successfully")
 
 	handler := handler.NewHandler(db, redis)
-	startServer(handler)
+	startServer(config.Mode, handler)
 }
