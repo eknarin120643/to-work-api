@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  db:
+    build:
+      context: .
+      dockerfile: ./docker/postgres/Dockerfile
+    container_name: to-work-postgres-db-dev
+    env_file:
+      - .env
+    ports:
+      - "${DATABASE_PORT:-5432}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./db/schema:/docker-entrypoint-initdb.d
+    restart: unless-stopped
+  redis:
+    image: redis:7-alpine
+    container_name: to-work-redis-dev
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+    restart: unless-stopped
+volumes:
+  postgres_data:
+  redis_data:
