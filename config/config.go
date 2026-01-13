@@ -30,10 +30,14 @@ const (
 	ModeRelease Mode = "RELEASE"
 )
 
+type RestConfig struct {
+	Port string
+}
 type Config struct {
 	Mode          Mode
 	PostgreConfig *PostgreConfig
 	RedisConfig   *RedisConfig
+	RestConfig    *RestConfig
 }
 
 func Load() (*Config, error) {
@@ -53,11 +57,17 @@ func Load() (*Config, error) {
 	if err != nil {
 		return nil, err
 	}
+	restPort := "8080"
+	if os.Getenv("REST_PORT") != "" {
+		restPort = os.Getenv("REST_PORT")
+	}
+	restConfig := &RestConfig{Port: restPort}
 
 	config := &Config{
 		Mode:          newModeFromString(mode),
 		PostgreConfig: postgreConfig,
 		RedisConfig:   redisConfig,
+		RestConfig:    restConfig,
 	}
 
 	return config, nil
