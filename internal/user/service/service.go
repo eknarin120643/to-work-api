@@ -2,6 +2,7 @@ package service
 
 import (
 	"to-work-api/internal/sqlc"
+	"to-work-api/internal/user/service/command"
 	"to-work-api/internal/user/service/query"
 
 	"github.com/jackc/pgx/v5/pgxpool"
@@ -14,7 +15,8 @@ type Service struct {
 }
 
 type Commands struct {
-	// TODO : implement commands
+	CreateUser command.CreateUserHandler
+	UpdateUser command.UpdateUserHandler
 }
 
 type Queries struct {
@@ -24,7 +26,10 @@ type Queries struct {
 func NewService(db *pgxpool.Pool, rc *redis.Client) *Service {
 	queries := sqlc.New(db)
 	return &Service{
-		Commands: Commands{},
+		Commands: Commands{
+			CreateUser: *command.NewCreateUserHandler(queries),
+			UpdateUser: *command.NewUpdateUserHandler(queries),
+		},
 		Queries: Queries{
 			GetUser: *query.NewGetUserHandler(queries),
 		},
